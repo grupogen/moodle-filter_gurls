@@ -156,17 +156,17 @@ class filter_gurls_renderer extends plugin_renderer_base {
                     }
 
                     if (!$deafulturl = $DB->get_record('filter_gurls_default', array('groupingid' => $sgurl->id))) {
-                        $addurl = new moodle_url('addmapping.php', array('groupingid' => $sgurl->id, 'sesskey' => $USER->sesskey));
+                        $addurl = new moodle_url('addmapping.php', array('groupingid' => $sgurl->id));
                         $actions = $OUTPUT->single_button($addurl, get_string('adddefaulturl', 'filter_gurls'), 'GET');
                     } else {
                         $actions .= ' ';
                         $defineurl = new moodle_url('defineurl.php',
-                                array('groupingid' => $sgurl->id, 'defaultid' => $deafulturl->id, 'sesskey' => $USER->sesskey));
+                                array('groupingid' => $sgurl->id, 'defaultid' => $deafulturl->id));
                         $actions .= $OUTPUT->action_icon($defineurl,
                                 new pix_icon('i/edit', get_string('defineurl', 'filter_gurls')));
                         if ($deletestatus) {
                             $deleteurl = new moodle_url('deletedefault.php',
-                                    array('groupingid' => $sgurl->id, 'defaultid' => $deafulturl->id, 'sesskey' => $USER->sesskey));
+                                    array('groupingid' => $sgurl->id, 'defaultid' => $deafulturl->id));
                             $actions .= $OUTPUT->action_icon($deleteurl,
                                     new pix_icon('t/delete', get_string('deletedefaulturl', 'filter_gurls')));
                         }
@@ -285,12 +285,12 @@ class filter_gurls_renderer extends plugin_renderer_base {
             echo html_writer::tag('br', '', array());
             $editurl = new moodle_url('editdefault.php',
                     array('groupingid' => $defaulturlobj->groupingid,
-                        'defaultid' => $defaulturlobj->id, 'sesskey' => $USER->sesskey));
+                        'defaultid' => $defaulturlobj->id));
             $action = $OUTPUT->action_icon($editurl, new pix_icon('i/edit', get_string('editdefaulturl', 'filter_gurls')));
             echo html_writer::tag('span', get_string('default', 'filter_gurls'), array());
             echo html_writer::tag('span', $defaulturlobj->defaulturl, array('class' => 'editable',
                 'data-url' => 'editdefaultinline.php?groupingid=' .
-                $defaulturlobj->groupingid . '&defaultid=' . $defaulturlobj->id . '&sesskey=' . $USER->sesskey,
+                $defaulturlobj->groupingid . '&defaultid=' . $defaulturlobj->id,
                 'data-activator' => '#edit-activator',
                 'data-input-class' => 'short'));
             echo html_writer::tag('span', $action, array('class' => 'button', 'id' => 'edit-activator'));
@@ -316,7 +316,7 @@ class filter_gurls_renderer extends plugin_renderer_base {
         $table->define_columns($tablecolumns);
         $table->define_headers($tableheaders);
         $table->define_baseurl($CFG->wwwroot . '/filter/gurls/defineurl.php?defaultid=' .
-                $defaultid . '&groupingid=' . $defaulturlobj->groupingid . '&sesskey=' . $USER->sesskey);
+                $defaultid . '&groupingid=' . $defaulturlobj->groupingid);
 
         $table->sortable(true, 'name'); // Sorted by reportname by default.
         $table->collapsible(false);
@@ -382,13 +382,13 @@ class filter_gurls_renderer extends plugin_renderer_base {
                     if ($deletestatus) {
                         $deleteurl = new moodle_url('deleteurl.php',
                                 array('defaultid' => $defaultid, 'defurlid' => $sgurl->id,
-                                    'groupingid' => $defaulturlobj->groupingid, 'sesskey' => $USER->sesskey));
+                                    'groupingid' => $defaulturlobj->groupingid));
                         $actions .= $OUTPUT->action_icon($deleteurl,
                                 new pix_icon('t/delete', get_string('deletedefinedurl', 'filter_gurls')));
                     }
                     $assocgroup = new moodle_url('associategroups.php',
                             array('defaultid' => $defaultid, 'defurlid' => $sgurl->id,
-                                'groupingid' => $defaulturlobj->groupingid, 'sesskey' => $USER->sesskey));
+                                'groupingid' => $defaulturlobj->groupingid));
                     $actions .= $OUTPUT->action_icon($assocgroup,
                             new pix_icon('t/groups', get_string('associategroups', 'filter_gurls')));
 
@@ -404,7 +404,7 @@ class filter_gurls_renderer extends plugin_renderer_base {
 
         $addurl = new moodle_url('/filter/gurls/definenewurl.php',
                 array('defaultid' => $defaultid,
-                    'groupingid' => $defaulturlobj->groupingid, 'sesskey' => $USER->sesskey));
+                    'groupingid' => $defaulturlobj->groupingid));
         $closeurl = new moodle_url('/filter/gurls/gurlpanel.php', array());
         echo html_writer::tag('div', $OUTPUT->single_button($addurl, get_string('definenewurl', 'filter_gurls'), 'GET') .
                 $OUTPUT->single_button($closeurl, get_string('close', 'filter_gurls'), 'GET'), array());
@@ -508,13 +508,13 @@ class filter_gurls_renderer extends plugin_renderer_base {
                     $define = '';
                     $editurl = new moodle_url('editassoc.php',
                             array('defaultid' => $defaultid, 'waid' => $sgurl->waid,
-                                'groupingid' => $defaulturlobj->groupingid, 'sesskey' => $USER->sesskey));
+                                'groupingid' => $defaulturlobj->groupingid));
                     $actions = $OUTPUT->action_icon($editurl,
                             new pix_icon('i/edit', get_string('editassoc', 'filter_gurls')));
                     $actions .= ' ';
                     $deleteurl = new moodle_url('deleteassoc.php',
                             array('defaultid' => $defaultid, 'waid' => $sgurl->waid,
-                                'groupingid' => $defaulturlobj->groupingid, 'sesskey' => $USER->sesskey));
+                                'groupingid' => $defaulturlobj->groupingid));
                     $actions .= $OUTPUT->action_icon($deleteurl,
                             new pix_icon('t/delete', get_string('deleteassoc', 'filter_gurls')));
 
@@ -531,7 +531,7 @@ class filter_gurls_renderer extends plugin_renderer_base {
         }
 
         $addurl = new moodle_url('/filter/gurls/defineassoc.php',
-                array('defaultid' => $defaultid, 'groupingid' => $defaulturlobj->groupingid, 'sesskey' => $USER->sesskey));
+                array('defaultid' => $defaultid, 'groupingid' => $defaulturlobj->groupingid));
         echo $OUTPUT->single_button($addurl, get_string('defineassoc', 'filter_gurls'), 'GET');
     }
 

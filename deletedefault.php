@@ -26,20 +26,18 @@ require(dirname(__FILE__) . '/../../config.php');
 
 $defaultid = required_param('defaultid', PARAM_INT);
 $groupingid = required_param('groupingid', PARAM_INT);
-$sesskey = required_param('sesskey', PARAM_ALPHA);
 $confirm = optional_param('confirm', 0, PARAM_BOOL);
 
 $defaultobject = $DB->get_record('filter_gurls_default',
         array('groupingid' => $groupingid, 'id' => $defaultid), '*', MUST_EXIST);
 
 require_login();
-require_sesskey();
 
 $syscontext = context_system::instance();
 require_capability('moodle/site:config', context_system::instance());
 
 $PAGE->set_url('/filter/gurls/deletedefault.php',
-        array('groupingid' => $groupingid, 'id' => $defaultid, 'sesskey' => $sesskey));
+        array('groupingid' => $groupingid, 'id' => $defaultid));
 $PAGE->set_context($syscontext);
 
 $title = get_string('currentdefault', 'filter_gurls');
@@ -66,7 +64,7 @@ if ($defaultobject) {
 echo '<br />';
 $continue = new moodle_url('/filter/gurls/deletedefault.php',
                 array('groupingid' => $groupingid, 'defaultid' => $defaultid,
-                    'sesskey' => $sesskey, 'confirm' => 1));
+                    'confirm' => 1));
 $cancel = new moodle_url('/filter/gurls/gurlpanel.php', array());
 echo $OUTPUT->confirm("<p>$strconfirm</p>", $continue, $cancel);
 

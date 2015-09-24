@@ -28,18 +28,16 @@ require_once('editurl_form.php');
 $defurlid = required_param('defurlid', PARAM_INT); // Url id.
 $groupingid = required_param('groupingid', PARAM_INT); // Grouping id.
 $defaultid = required_param('defaultid', PARAM_INT); // Default id.
-$sesskey = required_param('sesskey', PARAM_ALPHA);
 
 require_login();
-require_sesskey();
 
 $PAGE->set_context(context_system::instance());
 require_capability('moodle/site:config', context_system::instance());
 $navurl = new moodle_url('/filter/gurls/defineurl.php',
-                array('defaultid' => $defaultid, 'sesskey' => $sesskey, 'groupingid' => $groupingid));
+                array('defaultid' => $defaultid, 'groupingid' => $groupingid));
 
 $PAGE->set_url('/filter/gurls/editurl.php',
-        array('groupingid' => $groupingid, 'defaultid' => $defaultid, 'sesskey' => $sesskey));
+        array('groupingid' => $groupingid, 'defaultid' => $defaultid));
 $PAGE->navbar->add(get_string('defineurl', 'filter_gurls'), $navurl);
 $PAGE->navbar->add(get_string('editurl', 'filter_gurls'));
 

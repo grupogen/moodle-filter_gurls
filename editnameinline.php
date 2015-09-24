@@ -26,11 +26,9 @@ require(dirname(__FILE__) . '/../../config.php');
 
 $groupingid = required_param('groupingid', PARAM_INT); // Grouping id.
 $defurlid = required_param('defurlid', PARAM_INT); // Default id.
-$sesskey = required_param('sesskey', PARAM_ALPHA);
 $value = required_param('value', PARAM_ALPHANUMEXT);
 
 require_login();
-require_sesskey();
 
 $PAGE->set_context(context_system::instance());
 require_capability('moodle/site:config', context_system::instance());

@@ -27,19 +27,17 @@ require(dirname(__FILE__) . '/../../config.php');
 $defaultid = required_param('defaultid', PARAM_INT); // Defauldid.
 $waid = required_param('waid', PARAM_INT); // Assoc id.
 $groupingid = required_param('groupingid', PARAM_INT); // Grouping id.
-$sesskey = required_param('sesskey', PARAM_ALPHA);
 $confirm = optional_param('confirm', 0, PARAM_BOOL);
 
 $defaultobject = $DB->get_record('filter_gurls_wassoc', array('id' => $waid), '*', MUST_EXIST);
 
 require_login();
-require_sesskey();
 
 $syscontext = context_system::instance();
 require_capability('moodle/site:config', context_system::instance());
 
 $PAGE->set_url('/filter/gurls/deleteassoc.php',
-        array('groupingid' => $groupingid, 'waid' => $waid, 'sesskey' => $sesskey, 'defaultid' => $defaultid));
+        array('groupingid' => $groupingid, 'waid' => $waid, 'defaultid' => $defaultid));
 $PAGE->set_context($syscontext);
 
 $title = get_string('currentassoc', 'filter_gurls');
@@ -50,7 +48,7 @@ $PAGE->add_body_class('filter_gurls');
 $PAGE->set_heading(format_string($title));
 
 $navurl = new moodle_url('/filter/gurls/mapgroups.php',
-                array('defaultid' => $defaultid, 'sesskey' => $sesskey, 'groupingid' => $groupingid));
+                array('defaultid' => $defaultid, 'groupingid' => $groupingid));
 
 // Form processing/
 if ($confirm) {  // The operation was confirmed.
@@ -69,7 +67,7 @@ if ($defaultobject) {
 echo '<br />';
 $continue = new moodle_url('/filter/gurls/deleteassoc.php',
                 array('groupingid' => $groupingid, 'waid' => $waid,
-                    'defaultid' => $defaultid, 'sesskey' => $sesskey, 'confirm' => 1));
+                    'defaultid' => $defaultid, 'confirm' => 1));
 $cancel = $navurl;
 echo $OUTPUT->confirm("<p>$strconfirm</p>", $continue, $cancel);
 

@@ -27,7 +27,6 @@ require(dirname(__FILE__) . '/../../config.php');
 $defaultid = required_param('defaultid', PARAM_INT); // Defauldid.
 $defurlid = required_param('defurlid', PARAM_INT); // Url id.
 $groupingid = required_param('groupingid', PARAM_INT); // Grouping id.
-$sesskey = required_param('sesskey', PARAM_ALPHA);
 $confirm = optional_param('confirm', 0, PARAM_BOOL);
 
 
@@ -35,13 +34,12 @@ $defaultobject = $DB->get_record('filter_gurls_urls',
         array('id' => $defurlid), '*', MUST_EXIST);
 
 require_login();
-require_sesskey();
 
 $syscontext = context_system::instance();
 require_capability('moodle/site:config', context_system::instance());
 
 $PAGE->set_url('/filter/gurls/deleteurl.php', array('groupingid' => $groupingid,
-    'defurlid' => $defurlid, 'sesskey' => $sesskey, 'defaultid' => $defaultid));
+    'defurlid' => $defurlid, 'defaultid' => $defaultid));
 $PAGE->set_context($syscontext);
 $PAGE->set_pagelayout('standard');
 
@@ -53,7 +51,7 @@ $PAGE->add_body_class('filter_gurls');
 $PAGE->set_heading(format_string($title));
 
 $navurl = new moodle_url('/filter/gurls/defineurl.php',
-                array('defaultid' => $defaultid, 'sesskey' => $sesskey, 'groupingid' => $groupingid));
+                array('defaultid' => $defaultid, 'groupingid' => $groupingid));
 
 // Form processing.
 if ($confirm) {  // The operation was confirmed.
@@ -73,7 +71,7 @@ if ($defaultobject) {
 echo '<br />';
 $continue = new moodle_url('/filter/gurls/deleteurl.php',
                 array('groupingid' => $groupingid, 'defurlid' => $defurlid,
-                    'defaultid' => $defaultid, 'sesskey' => $sesskey, 'confirm' => 1));
+                    'defaultid' => $defaultid, 'confirm' => 1));
 $cancel = $navurl;
 echo $OUTPUT->confirm("<p>$strconfirm</p>", $continue, $cancel);
 

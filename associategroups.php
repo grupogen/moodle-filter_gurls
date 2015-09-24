@@ -27,7 +27,6 @@ require_once('locallib.php');
 $groupingid = required_param('groupingid', PARAM_INT);
 $defurlid = required_param('defurlid', PARAM_INT); // Url id.
 $defaultid = required_param('defaultid', PARAM_INT); // Default id.
-$sesskey = required_param('sesskey', PARAM_ALPHA);
 
 $PAGE->set_url($CFG->wwwroot . '/admin/settings.php?section=filtersettinggurls');
 $PAGE->set_pagelayout('standard');
@@ -36,7 +35,7 @@ if (!$grouping = $DB->get_record('groupings', array('id' => $groupingid))) {
     print_error('invalidgroupid');
 }
 
-if (!$course = $DB->get_record('course', array('id' => 1))) {
+if (!$course = $DB->get_record('course', array('id' => SITEID))) {
     print_error('invalidcourse');
 }
 
@@ -53,7 +52,7 @@ require_capability('moodle/course:managegroups', $context);
 $returnurl = $CFG->wwwroot . '/filter/gurls/defineurl.php?action=defineurl&defaultid=' . $defaultid;
 
 
-if ($frm = data_submitted() and confirm_sesskey()) {
+if ($frm = data_submitted()) {
 
     if (isset($frm->cancel)) {
         redirect($returnurl);
@@ -129,7 +128,7 @@ $straddgroupstogroupings = get_string('addgroupstogroupings', 'group');
 $groupingname = format_string($grouping->name);
 
 $navurl = new moodle_url('/filter/gurls/defineurl.php',
-        array('defaultid' => $defaultid, 'sesskey' => $sesskey, 'groupingid' => $groupingid));
+        array('defaultid' => $defaultid, 'groupingid' => $groupingid));
 $PAGE->navbar->add(get_string('defineurl', 'filter_gurls'), $navurl);
 $PAGE->navbar->add(get_string('defineassoc', 'filter_gurls'));
 
@@ -143,12 +142,12 @@ echo html_writer::tag('hr', '', array());
 
 if ($url) {
     $editurl = new moodle_url('editurl.php', array('groupingid' => $groupingid, 'defaultid' => $defaultid,
-        'defurlid' => $defurlid, 'sesskey' => $USER->sesskey));
+        'defurlid' => $defurlid));
     $action = $OUTPUT->action_icon($editurl, new pix_icon('i/edit', get_string('editdefaulturl', 'filter_gurls')));
     echo html_writer::tag('span', get_string('mapname', 'filter_gurls') . ' : ', array());
     echo html_writer::tag('span', $url->name, array('class' => 'editable',
         'data-url' => 'editnameinline.php?groupingid=' . $groupingid . '&defaultid=' .
-        $defaultid . '&defurlid=' . $defurlid . '&sesskey=' . $USER->sesskey,
+        $defaultid . '&defurlid=' . $defurlid,
         'data-activator' => '#edit-activator2',
         'data-input-class' => 'short'));
     echo html_writer::tag('span', $action, array('class' => 'button', 'id' => 'edit-activator2'));
@@ -157,7 +156,7 @@ if ($url) {
     echo html_writer::tag('span', get_string('urlbase', 'filter_gurls') . ' : ', array());
     echo html_writer::tag('span', $url->urlbase, array('class' => 'editable',
         'data-url' => 'editurlinline.php?groupingid=' . $groupingid . '&defaultid=' .
-        $defaultid . '&defurlid=' . $defurlid . '&sesskey=' . $USER->sesskey,
+        $defaultid . '&defurlid=' . $defurlid ,
         'data-activator' => '#edit-activator',
         'data-input-class' => 'short'));
     echo html_writer::tag('span', $action, array('class' => 'button', 'id' => 'edit-activator'));
@@ -168,7 +167,6 @@ if ($url) {
     <h3 class="main"></h3>
     <form id="assignform" method="post" action="">
         <div>
-            <input type="hidden" name="sesskey" value="<?php p(sesskey()); ?>" />
             <table summary="" class="generaltable generalbox groupmanagementtable boxaligncenter">
                 <tr>
                     <td id="existingcell">

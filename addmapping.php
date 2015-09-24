@@ -28,16 +28,14 @@ require(dirname(__FILE__) . '/../../config.php');
 require_once('addmapping_form.php');
 
 $groupingid = required_param('groupingid', PARAM_INT); // Grouping id.
-$sesskey = required_param('sesskey', PARAM_ALPHA);
 
 require_login();
-require_sesskey();
 
 $PAGE->set_context(context_system::instance());
 require_capability('moodle/site:config', context_system::instance());
 $navurl = new moodle_url('/filter/gurls/gurlpanel.php', array());
 
-$PAGE->set_url('/filter/gurls/addmapping.php', array('groupingid' => $groupingid, 'sesskey' => $sesskey));
+$PAGE->set_url('/filter/gurls/addmapping.php', array('groupingid' => $groupingid));
 $PAGE->navbar->add(get_string('gurlpanel', 'filter_gurls'), $navurl);
 $PAGE->navbar->add(get_string('addmapping', 'filter_gurls'));
 $PAGE->set_pagelayout('standard');

@@ -29,19 +29,17 @@ require_once('defineassoc_form.php');
 
 $defaultid = required_param('defaultid', PARAM_INT); // Default URL id.
 $groupingid = required_param('groupingid', PARAM_INT); // Grouping id.
-$sesskey = required_param('sesskey', PARAM_ALPHA);
 
 require_login();
-require_sesskey();
 
 $PAGE->set_context(context_system::instance());
 $PAGE->set_pagelayout('standard');
 require_capability('moodle/site:config', context_system::instance());
 $navurl = new moodle_url('/filter/gurls/mapgroups.php?action=mapgroups',
-        array('defaultid' => $defaultid, 'sesskey' => $sesskey, 'groupingid' => $groupingid));
+        array('defaultid' => $defaultid, 'groupingid' => $groupingid));
 
 $PAGE->set_url('/filter/gurls/defineassoc.php',
-        array('defaultid' => $defaultid, 'sesskey' => $sesskey, 'groupingid' => $groupingid));
+        array('defaultid' => $defaultid, 'groupingid' => $groupingid));
 $PAGE->navbar->add(get_string('defineurl', 'filter_gurls'), $navurl);
 $PAGE->navbar->add(get_string('defineassoc', 'filter_gurls'));
 
