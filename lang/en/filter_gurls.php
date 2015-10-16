@@ -84,4 +84,4 @@ $string['associatedgroups'] = 'Associated groups';
 $string['close'] = 'Close';
 $string['nogroups'] = 'No grouping to show.';
 $string['clickhere'] = 'Click here to edit front page groups.';
-$string['help_text'] = 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.';
+$string['help_text'] = 'This plugin will dynamically replace a URL (example: www.black.com) with an alternative URL (example: www.blue.com) based on front page group membership. More info here: http://northernlinks.ca/docs/GURLS_Manual.pdf ';
