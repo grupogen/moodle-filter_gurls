@@ -84,4 +84,4 @@ $string['associatedgroups'] = 'Associated groups';
 $string['close'] = 'Close';
 $string['nogroups'] = 'No grouping to show.';
 $string['clickhere'] = 'Click here to edit front page groups.';
-$string['help_text'] = 'This plugin will dynamically replace a URL (example: www.black.com) with an alternative URL (example: www.blue.com) based on front page group membership. More info here: http://northernlinks.ca/docs/GURLS_Manual.pdf ';
+$string['help_text'] = 'This plugin will dynamically replace a URL (example: www.black.com) with an alternate URL (example: www.blue.com) based on group memberships that are defined at the front page. <a href="http://northernlinks.ca/docs/GURLS_Manual.pdf"> Click here</a> to download a PDF with more information. ';
