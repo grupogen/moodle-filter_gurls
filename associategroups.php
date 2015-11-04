@@ -63,7 +63,7 @@ if ($frm = data_submitted()) {
         }
         // Invalidate the course groups cache seeing as we've changed it.
         cache_helper::invalidate_by_definition('core', 'groupdata', array(), array($courseid));
-    } else if (isset($frm->remove) and !empty($frm->removeselect)) {
+    } else if (isset($frm->remove) and !empty($frm->removeselect) && confirm_sesskey()) {
         foreach ($frm->removeselect as $groupid) {
             // Ask this method not to purge the cache, we'll do it ourselves afterwards.
             filter_gurls_unassign_group((int) $groupid, $defurlid, $defaultid);

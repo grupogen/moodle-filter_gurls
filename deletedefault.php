@@ -48,7 +48,7 @@ $PAGE->add_body_class('filter_gurls');
 $PAGE->set_heading(format_string($title));
 
 // Form processing.
-if ($confirm) {  // The operation was confirmed.
+if ($confirm && confirm_sesskey()) {  // The operation was confirmed.
     $DB->delete_records('filter_gurls_default',
             array('id' => $defaultid)) or die('could not remove record'); // D default URL mapping.
     redirect('gurlpanel.php');

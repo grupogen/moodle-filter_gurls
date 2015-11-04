@@ -54,7 +54,7 @@ $navurl = new moodle_url('/filter/gurls/defineurl.php',
                 array('defaultid' => $defaultid, 'groupingid' => $groupingid));
 
 // Form processing.
-if ($confirm) {  // The operation was confirmed.
+if ($confirm && confirm_sesskey()) {  // The operation was confirmed.
     $DB->delete_records('filter_gurls_urls',
             array('id' => $defurlid)) or die('could not remove record'); // Delete default URL mapping.
     redirect($navurl);
